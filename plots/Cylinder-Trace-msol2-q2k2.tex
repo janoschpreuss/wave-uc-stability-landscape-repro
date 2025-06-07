@@ -1,0 +1,127 @@
+\documentclass[tikz]{standalone}
+\usetikzlibrary{spy,shapes,shadows,calc,pgfplots.groupplots}
+\usepackage{amsmath}
+\usepackage{physics} 
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.3}
+\usepackage{amsmath}
+\DeclareFontFamily{OT1}{pzc}{}
+\DeclareFontShape{OT1}{pzc}{m}{it}{<-> s * [1.10] pzcmi7t}{}
+\DeclareMathAlphabet{\mathpzc}{OT1}{pzc}{m}{it}
+\newcommand{\ddtn}{\operatorname{dtn}}
+
+\pgfplotsset{
+  legend style = {font=\small}
+}
+
+\begin{document}
+\begin{tikzpicture}[scale = 1.0]
+
+
+\begin{groupplot}[
+    group style={
+        group size=2 by 1,
+        horizontal sep=7.5pt,
+        vertical sep=20pt,
+   },
+   %name = dtnplot,
+   height = 5.5cm,
+   width = 7.5cm,
+   every axis plot/.append style={thick},
+   %axis y line*=left,
+   legend pos = south east,
+    legend style = { column sep = 10pt, legend columns = 2, legend to name = grouplegend,},
+   ]
+    \nextgroupplot[ 
+    ymode=log,
+    xmode=log,
+    ymax = 2e-0,
+    ymin = 1e-5,
+    xlabel= { $\sim h$},
+    %legend pos = south west,
+    x label style={at={(axis description cs:0.65,+0.075)},anchor=east},
+	%title = {  $\norm{ u - \mathcal{L}_{\Delta t} \underline{u}_1 }_{L^2(Q)}$ },
+	title = { $ \lVert u - \underline{u}_1 \rVert_{ Q \setminus B }$  },
+    legend style={at={(0.5,-0.1)},anchor=north},
+	]
+
+   
+    \addplot[green!70!black,very thick,mark=square,mark options={scale=1.0},forget plot] 
+   	table[x=deltat,y=L2-err-Bcompl] {../data/Cylinder--q2-qstar0-k2-kstar1-msol2.dat}; 
+    \addplot[red,very thick,mark=diamond,forget plot] 
+   	table[x=deltat,y=L2-err-Bcompl] {../data/Cylinder--q2-qstar0-k2-kstar1msol2-Mmodes1.dat}; 
+    \addplot[blue,very thick,mark=o forget plot] 
+   	table[x=deltat,y=L2-err-Bcompl] {../data/Cylinder--q2-qstar0-k2-kstar1msol2-Mmodes2.dat}; 
+    \addplot[orange,dashed,very thick,mark=x,mark options={scale=1.0},forget plot] 
+   	table[x=deltat,y=L2-err-Bcompl] {../data/Cylinder--q2-qstar0-k2-kstar1msol2-Mmodes3.dat}; 
+    
+    \addplot[lightgray,dashed,ultra thick, forget plot] 
+    	table[mark=none,x=deltat,y expr ={0.4*\thisrowno{0}*\thisrowno{0}*\thisrowno{0}}] {../data/Cylinder--q2-qstar0-k2-kstar1msol2-Mmodes2.dat} ;  %\addlegendentry{$ \mathcal{O}((\Delta t)^2) $ } %
+    
+    
+    \nextgroupplot[ 
+    ymode=log,
+    xmode=log,
+    %axis y line=middle, 
+    ymin = 1e-5,
+    ymax = 2e0,
+    xlabel= { $\sim h$},
+    legend style = { column sep = 10pt, legend columns = 5, legend to name = grouplegend,},
+    x label style={at={(axis description cs:0.65,+0.075)},anchor=east},
+	title = { $ \lVert u - \underline{u}_1 \rVert_{ B }$  },
+    legend style={at={(0.5,-0.1)},anchor=north},
+    yticklabel={\empty},
+	]
+
+    %L2-err-B
+    \addplot[green!70!black,very thick,mark=square,mark options={scale=1.0}] 
+	table[x=deltat,y=L2-err-B] {../data/Cylinder--q2-qstar0-k2-kstar1-msol2.dat}; \addlegendentry{$ \mathcal{V}_M = L^2(\Sigma) $ }%
+    \addplot[red,very thick,mark=diamond] 
+   	table[x=deltat,y=L2-err-B] {../data/Cylinder--q2-qstar0-k2-kstar1msol2-Mmodes1.dat}; \addlegendentry{$ M = 1 $ }%
+    \addplot[blue,very thick,mark=o] 
+   	table[x=deltat,y=L2-err-B] {../data/Cylinder--q2-qstar0-k2-kstar1msol2-Mmodes2.dat}; \addlegendentry{$ M = 2 $ }%
+    \addplot[orange,dashed,very thick,mark=x,mark options={scale=1.0}] 
+   	table[x=deltat,y=L2-err-B] {../data/Cylinder--q2-qstar0-k2-kstar1msol2-Mmodes3.dat}; \addlegendentry{$ M = 3 $ }%
+
+    \addplot[lightgray,dashed,ultra thick] 
+    	table[mark=none,x=deltat,y expr ={0.3*\thisrowno{0}*\thisrowno{0}*\thisrowno{0}}] {../data/Cylinder--q2-qstar0-k2-kstar1msol2-Mmodes2.dat} ; \addlegendentry{$ \mathcal{O}(h^3) $ }%    
+
+    \end{groupplot}
+    \node at ($(group c2r1) + (-3.1cm,-2.85cm)$) {\ref{grouplegend}}; 
+    \node (title) at ($(group c2r1.center)+(-3.0cm,3.0cm)$) { \boxed{q = k = 2, \; q_{\ast} = 0, k_{\ast}=1 }  };
+
+
+
+\end{tikzpicture}
+\end{document}
+
+
+
+
+    \nextgroupplot[ 
+    ymode=log,
+    xmode=log,
+    ymin = 1e-5,
+    ymax = 2e0,
+    xlabel= { $\sim h$},
+    %legend pos = south west,
+    legend style = { column sep = 10pt, legend columns = 5, legend to name = grouplegend,},
+    x label style={at={(axis description cs:0.65,+0.075)},anchor=east},
+	%title = {  $\norm{ u - \mathcal{L}_{\Delta t} \underline{u}_1 }_{L^2(Q)}$ },
+    title = { $ \lVert u - \underline{u}_1 \rVert_{ \omega_T }$   },
+    legend style={at={(0.5,-0.1)},anchor=north},
+    yticklabel={\empty},
+	]
+
+    %L2-err-omega 
+    \addplot[green!70!black,very thick,mark=square,mark options={scale=1.0}] 
+	table[x=deltat,y=L2-err-omega] {../data/Cylinder--q2-qstar0-k2-kstar1-msol2.dat}; \addlegendentry{$ \mathcal{V}^M = \emptyset $ }%
+    \addplot[red,very thick,mark=diamond] 
+   	table[x=deltat,y=L2-err-omega] {../data/Cylinder--q2-qstar0-k2-kstar1msol2-Mmodes1.dat}; \addlegendentry{$ M = 1 $ }%
+    \addplot[blue,very thick,mark=o] 
+	table[x=deltat,y=L2-err-omega] {../data/Cylinder--q2-qstar0-k2-kstar1msol2-Mmodes2.dat}; \addlegendentry{$ M = 2 $ }%
+     \addplot[orange,dashed,very thick,mark=x,mark options={scale=1.0}] 
+   	table[x=deltat,y=L2-err-omega] {../data/Cylinder--q2-qstar0-k2-kstar1msol2-Mmodes3.dat}; \addlegendentry{$ M = 3 $ }%
+
+    \addplot[lightgray,dashed,ultra thick] 
+	table[mark=none,x=deltat,y expr ={0.1*\thisrowno{0}*\thisrowno{0}*\thisrowno{0}}] {../data/Cylinder--q2-qstar0-k2-kstar1msol2-Mmodes2.dat}; \addlegendentry{$ \mathcal{O}(h^3) $ }%

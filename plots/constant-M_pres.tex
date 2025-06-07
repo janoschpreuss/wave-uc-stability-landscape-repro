@@ -1,0 +1,86 @@
+\documentclass[tikz]{standalone}
+\usetikzlibrary{spy,shapes,shadows,calc,pgfplots.groupplots}
+\usepackage{amsmath}
+\usepackage{physics} 
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.3}
+\usepackage{amsmath}
+\DeclareFontFamily{OT1}{pzc}{}
+\DeclareFontShape{OT1}{pzc}{m}{it}{<-> s * [1.10] pzcmi7t}{}
+\DeclareMathAlphabet{\mathpzc}{OT1}{pzc}{m}{it}
+\newcommand{\ddtn}{\operatorname{dtn}}
+
+\pgfplotsset{
+  legend style = {font=\small}
+}
+\DeclareMathOperator{\Span}{span}
+\begin{document}
+\begin{tikzpicture}[scale = 0.8]
+
+%\begin{axis}[
+\begin{groupplot}[
+    group style={
+        %group name=dtn,
+        group size=1 by 1,
+        %xticklabels at=edge bottom,
+        horizontal sep=25pt,
+        vertical sep=40pt,
+   },
+   %name = dtnplot,
+   height = 6.5cm,
+   width = 8.5cm,
+   every axis plot/.append style={thick},
+   %axis y line*=left,
+   legend pos = south east,
+   %ymin = 2e-6,
+   %xmin = 0,
+   %xmax = 11000,
+   %ymin = -20,
+   %ymax = 20,
+   %restrict y to domain=-1e2:1e2,
+   %label style={at={(axis description cs:0.5,-0.08)},anchor=north},
+   %every x tick scale label/.style={at={(xticklabel cs:0.925)},anchor=south west},
+   %x label style={at={(axis description cs:0.975,0.085)},anchor=east},
+   %xlabel= { $\lambda$},
+    legend style = { column sep = 10pt, legend columns = 1, legend to name = grouplegend,},
+   ]
+
+    \nextgroupplot[ 
+    ymode=log,
+    %xmode=log,
+    %xmin=0,xmax=1.6e4,
+    %xtick={25, 125, 250, 500, 800, 1000},
+    %axis x line*=middle,
+    %axis y line=middle, 
+    %ymax = 1e-0,
+    %ymax = 1e-0,
+    %ymin = 2e-4,
+    %width=9cm,
+    %restrict y to domain=-4e2:4e2,
+    %xtick={0,2e3,4e3,6e3,8e3,10e3,12e3,14e3},
+    xlabel= { $M$},
+    %legend pos = south west,
+    x label style={at={(axis description cs:0.85,0.05)},anchor=east},
+	%title = {  $\norm{ u - \mathcal{L}_{\Delta t} \underline{u}_1 }_{L^2(Q)}$ },
+    %title = { $ C_{\mathcal{V}^M_{\partial}} $  for   $q = k = 2 $ },
+    legend style={at={(-0.25,0.5)},anchor=north,nodes={scale=1.0, transform shape}}, 
+    %legend image post style={mark=*},
+    title style={at={(0.5,1.1)},anchor=north},
+	]
+   
+    \addplot[red,mark=x,mark options={scale=1.25}]  
+	table[x=M,y=Const] {../data/Cylinder-Const--q2-qstar0-k2-kstar1msol-var-Mmodes-1.dat} ;\addlegendentry{ $ C_M^{\mathrm{opt}}  $  } % 
+    
+    \addplot[cyan,very thick,mark=o,mark options={scale=0.75}]  
+	table[x=M,y=Const] {../data/Cylinder-Const--q2-qstar0-k2-kstar1msol-eq-Mmodes.dat};  \addlegendentry{ $ C_M $  } %
+    
+     \end{groupplot}
+    \node at ($(group c1r1) + (-0.55cm,1.65cm)$) {\ref{grouplegend}};
+
+\end{tikzpicture}
+\end{document}
+
+
+
+
+
