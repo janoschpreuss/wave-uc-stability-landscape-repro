@@ -38,7 +38,7 @@ print("rho = ", rho)
 print("tend = ", tend)
 
 
-max_ref_lvl = 3
+max_ref_lvl = 4
 
 # Space finite element order
 order_global = 2

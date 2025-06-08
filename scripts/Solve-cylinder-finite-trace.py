@@ -37,8 +37,8 @@ rho *= alpha_scale
 print("rho = ", rho)
 print("tend = ", tend)
 
-#max_ref_lvl = 4
-max_ref_lvl = 3
+max_ref_lvl = 4
+#max_ref_lvl = 3
 
 # Space finite element order
 order_global = 2

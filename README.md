@@ -31,29 +31,21 @@ Alternatively, if a recent latex distribution is available on the host machine i
 compile the figures there.
 
 
-## Fig. 2 & 3
+## Figures 2, 3 & 4 
 Change to directory `scripts`. Run
 
-    python3 
+    python3 Solve-cylinder-clean-data.py
+
+The following data files will be generated: 
+
+* "Cylinder--q__i__-qstar__j__-k__n__-kstar__m__-msol2.dat" where __i__,__j__,__n__ and __m__ represent the polynomial degrees q, qstar, k and kstar, 
+respectively. This data corresponds to Fig. 2 and 3. Addtionally, there are vtk files "2D-cylinder-reflvl1-q2_X.vtk" for X in [0,..7] created which 
+correspond to the plots of the difference in B and Q \ B shown in Figure 3.
+* "Cylinder--q1-qstar1-k1-kstar1-msol2alpha-__a__.dat" where __a__ in [one, 3quarter, half, quarter] corresponds to the value of the parameter kappa 
+in [1,3/4,1/2,1/4]. The vtk files "spacetime_vtk___a___X.vtk" correspond to the plots of the space-time sub-domains shown in Figure 4.
 
 
-## Fig. 4
-Change to directory `scripts`. Run
-
-    python3 
-
-
-## Fig. 5
-
-    python3 
-
-## Fig. 6
-Change to directory `scripts`. Run
-
-    python3 Solve-cylinder-finite-trace.py
-
-Data files of the form "Cylinder--q2-qstar0-k2-kstar1msol2-Mmodes__M__.dat.dat". Here __M__ in [1,2,3] 
-describes the dimension of the space V_M as in the paper. The data files contains the following columns: 
+The data files contains the following columns: 
 
 * deltat: mesh width for time discretization 
 * L2-err-B: L2-error in the set B 
@@ -61,14 +53,38 @@ describes the dimension of the space V_M as in the paper. The data files contain
 * L2-err-omega: L2-error in the data set 
 * Qall: L2-error in the entire space time cylinder Q 
 
-!!!! NEED TO GENERATE V_M = empty data as well !!!!!
+To generate Figure 2, switch to the folder `plots` and run 
 
-To generate Fig 6, switch to the folder `plots` and run 
+    latexmk -pdf Cylinder-Hoelder-conv.tex
+
+To generate Figure 3, switch to the folder `plots` and run 
+ 
+    latexmk -pdf Cylinder-Hoelder-conv-log-nop3.tex
+
+To generate Figure 4, switch to the folder `plots` and run 
+
+    latexmk -pdf Cylinder-Hoelder-stretch.tex
+
+
+## Figure 5
+
+    python3 
+
+## Figure 6
+Change to directory `scripts`. Run
+
+    python3 Solve-cylinder-finite-trace.py
+
+Data files of the form "Cylinder--q2-qstar0-k2-kstar1msol2-Mmodes__M__.dat.dat". Here __M__ in [1,2,3] 
+describes the dimension of the space V_M as in the paper. Note that the data for the case where V_M 
+is L^2(\Sigma) is produced during the creation of the data for Figures 2, 3 & 4. 
+
+To generate Figure 6, switch to the folder `plots` and run 
 
     latexmk -pdf Cylinder-Trace-msol2-q2k2.tex
 
 
-## Fig. 7
+## Figure 7
 
 Change to directory `scripts`. Run
 
@@ -81,7 +97,7 @@ To generate Fig 7, switch to the folder `plots` and run
     latexmk -pdf Cylinder-Trace-msol3-approx.tex
 
 
-## Fig. 8
+## Figure 8
 
 Change to directory `scripts`. Run
 
