@@ -67,8 +67,44 @@ To generate Figure 4, switch to the folder `plots` and run
 
 
 ## Figure 5
+The reproduction of this experiment proceeds in the following steps. 
+First we have to solve the generalized eigenvalue problem to obtain the mode which is 
+later to be used as noise. This step can be skipped when preferred as the data for 
+the mode is already available in the file "mode0-ref_lvl4.out". 
+If you wish to recompute the mode, change to directory `scripts` and run 
 
-    python3 
+    python3 Cylinder_eig.py 
+
+The second step is to reproduce the data for the visualization of the mass of the mode shown in the upper right
+panel of Figure 5. To this end, change to directory `scripts` and run 
+
+    python3 Cylinder-eig-plot-mode.py
+
+Afterwars, the data will be available in the file "Cylinder-bad-mode-mass.dat" in the data folder.
+The fist column "t" is the time, the other columns contain the mass in the subdomains corresponding to their names, 
+e.g. "mass-B" gives the mass in B at time t and so on. The created vtk files "2D-cylinder-noise-reflvl2-q1___j__.vtk" 
+for __j__ in [0,..,15] can be used to reproduce the plot of the mode shown in the upper left panel of the figure 
+using paraview. Additionally, the file '2D-cylinder-noise-time.vtu' allows to create a video of the mode.
+
+Now we can proceed to using convergence test with noisy data. Let us first compute the results with noise 
+taking from a smooth function (\delta u^s in the paper). To this end, change to directory `scripts` and run 
+
+    python3 Cylinder-eig-normalized-finestep-smooth.py
+
+The created files "Cylinder-q1-qstar1-k1-kstar1-noise-bad-mode-theta__X__.dat" contain the L^2-errors for 
+the variable theta=__X__ in [1,2]. That means that the noise is scaled proportial to h^theta.
+
+Let us finally compute taking the computed mode as noise. To this end, change to directory `scripts` and run  
+
+    python3 Cylinder-eig-normalized-finestep.py
+
+The created files "Cylinder--q1-qstar1-k1-kstar1-noise-bad-mode-theta__X__.dat" contain the L^2-errors for 
+the variable theta=__X__ in [1,2].  
+
+Finally, to generate Figure 5, switch to the folder `plots` and run 
+
+    latexmk -pdf Cylinder-noise.tex
+
 
 ## Figure 6
 Change to directory `scripts`. Run
