@@ -1,5 +1,5 @@
 # wave-uc-stability-landscape-repro
-This repository contains software and instructions to reproduce the numerical experiments in the paper
+This repository contains the instructions to reproduce the numerical experiments in the paper
 > "Unique continuation for the wave equation: the stability landscape
 >
 > * authors: Erik Burman(1), Lauri Oksanen(2), Janosch Preuss(3) and  Ziyao Zhao(2)
@@ -7,29 +7,14 @@ This repository contains software and instructions to reproduce the numerical ex
 > * (2): University of Helsinki
 > * (3): Inria Bordeaux (project team: Makutu)
 
-# <a name="repro"></a> How to reproduce
-The `python` scripts for runnings the numerical experiments are located in the folder `scripts`.
-To run an experiment we change to this folder and run the corresponding file.
-After execution has finished the produced data will be available in the folder `data`.
-For the purpose of comparison, the folder `data_save` contains a copy of the data which has been used for the plots in the paper.
-The data in both folders should be identical.
+# <a name="repro"></a> Required software 
 
-To generate the plots as shown in the article from the data just produced we change to the folder `plots`
-and compile the corresponding `latex` file.
-Below we decribe the above process for each of the figures in the article in detail.
-For viewing the generated pdf file, say `figure.pdf`, the figure has to be copied to the host machine.
-This can be done by executing the following commands in a new terminal window (not the one in which `docker` is run):
-
-    CONTAINER_ID=$(sudo docker ps -alq)
-    sudo docker cp $CONTAINER_ID:/home/app/wave-uc-stability-landscape-repro/plots/figure.pdf \
-    /path/on/host/machine/figure.pdf
-
-Here, `/path/on/host/machine/` has to be adapted according to the file structure on the host machine.
-The file `figure.pdf` can then be found at the designated path on the host machine and inspected with a common pdf viewer.
-(The command above assumes that the reproduction image is the latest docker image to be started on the machine).
-Alternatively, if a recent latex distribution is available on the host machine it is also possible to copy data and tex files to the latter and
-compile the figures there.
-
+The numerical experiments make use of the finite element library [ngsolve](https://ngsolve.org/) and the space-time 
+functionality provided in the Add-on [ngsxfem](https://github.com/ngsxfem/ngsxfem). Installation instructions are 
+provided [here](https://github.com/ngsxfem/ngsxfem/blob/master/INSTALLATION.md). The easiest way to install is 
+via the package manager [pip](https://pypi.org/project/pip/). Since the experiments make use of recently implemented 
+features, a fairly recent version of ngsxfem (>= 2.1.2505) is required to run the code. 
+To compile the figures, we recommend to use the perl script [latexmk](https://www.cantab.net/users/johncollins/latexmk/).  
 
 ## Figures 2, 3 & 4 
 Change to directory `scripts`. Run
@@ -145,5 +130,3 @@ C_M obtained with the space of dimension M is contained in the file Cylinder-Con
 To generate Fig 7, switch to the folder `plots` and run 
 
     latexmk -pdf constant-M_pres.tex
-
-
