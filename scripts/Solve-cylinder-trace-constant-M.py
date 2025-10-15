@@ -191,27 +191,30 @@ def SolveProblem(ref_lvl,M_modes=2, m_sol=2, min_space = False ):
         n += 1 
     
 
-    norm_H2 =  (1+4*m_sol**2*qpi**2 ) * sqrt( sum( norms_f["ccc"] )  )
-    norm_H2 += ( m_sol*qpi*sqrt(2) + 6 * sqrt(2)*(m_sol*qpi)**3 ) * sqrt( sum( norms_f["scc"] ) )
-    norm_H2 += ( m_sol*qpi +  (3*sqrt(2) + 4) *(m_sol*qpi)**3  ) * sqrt( sum( norms_f["csc"] )  )
-    norm_H2 += ( m_sol*qpi +  (3*sqrt(2) + 4) *(m_sol*qpi)**3  ) * sqrt( sum( norms_f["ccs"] )  )
-    norm_H2 +=  ( 2*sqrt(2)* (m_sol*qpi)**2 ) * sqrt( sum( norms_f["ssc"] )  )
-    norm_H2 +=  ( 2*sqrt(2)* (m_sol*qpi)**2 ) * sqrt( sum( norms_f["scs"] )  )
-    norm_H2 +=  ( 2 * (m_sol*qpi)**2 ) * sqrt( sum( norms_f["css"] )  )
-    norm_H2 +=  ( sqrt(2) * (m_sol*qpi)**3 ) * sqrt( sum( norms_f["sss"] )  )
+    norm_H3 =  (1+4*m_sol**2*qpi**2 ) * sqrt( sum( norms_f["ccc"] )  )
+    norm_H3 += ( m_sol*qpi*sqrt(2) + 6 * sqrt(2)*(m_sol*qpi)**3 ) * sqrt( sum( norms_f["scc"] ) )
+    norm_H3 += ( m_sol*qpi +  (3*sqrt(2) + 4) *(m_sol*qpi)**3  ) * sqrt( sum( norms_f["csc"] )  )
+    norm_H3 += ( m_sol*qpi +  (3*sqrt(2) + 4) *(m_sol*qpi)**3  ) * sqrt( sum( norms_f["ccs"] )  )
+    norm_H3 +=  ( 2*sqrt(2)* (m_sol*qpi)**2 ) * sqrt( sum( norms_f["ssc"] )  )
+    norm_H3 +=  ( 2*sqrt(2)* (m_sol*qpi)**2 ) * sqrt( sum( norms_f["scs"] )  )
+    norm_H3 +=  ( 2 * (m_sol*qpi)**2 ) * sqrt( sum( norms_f["css"] )  )
+    norm_H3 +=  ( sqrt(2) * (m_sol*qpi)**3 ) * sqrt( sum( norms_f["sss"] )  )
 
-    print("m_sol = {0}, norm_H2 = {1}".format(m_sol,norm_H2))  
+    print("m_sol = {0}, norm_H3 = {1}".format(m_sol,norm_H3))  
     st.told.Set(st.tstart)
 
-    return l2_errors_Q / ( norm_H2 * st.delta_t**3 )  
+    return l2_errors_Q / ( norm_H3 * st.delta_t**3 )  
 
   
 consts = [] 
-Mmax = 12
+#Mmax = 12
+Mmax = 10
 Ms = np.array([m for m in range(1,Mmax+1)]) 
+
 
 for m in Ms:
     consts.append(SolveProblem(ref_lvl=max_ref_lvl-1, M_modes=m, m_sol=m,min_space = False  ))
+    print("consts = ", consts)
     
 if True:
     name_str = "Cylinder-Const" + "-"  + "-q{0}".format(q)+"-qstar{0}".format(qstar)+"-k{0}".format(k)+"-kstar{0}".format(kstar)+"msol-eq-Mmodes"+".dat"
@@ -221,6 +224,7 @@ if True:
                X = np.transpose(results),
                header = header_str,
                comments = '')
+
 
 consts = [] 
 Ms = np.array([m for m in range(1,Mmax+1)]) 
