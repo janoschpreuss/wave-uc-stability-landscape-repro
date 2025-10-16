@@ -79,11 +79,11 @@
     \addplot[green!70!black,very thick,mark=diamond*, mark options={scale=0.75} ]  
 	table[x=deltat,y=L2-err-B] {../data/Cylinder--q1-qstar1-k1-kstar1-msol2alpha-half.dat}; \addlegendentry{$ \kappa = 1/2 $ }%
 
-    \addplot[magenta,very thick,mark=x, mark options={scale=0.75} ]  
-	table[x=deltat,y=Qall] {../data/Cylinder--q1-qstar1-k1-kstar1-msol2alpha-quarter.dat}; \addlegendentry{$ Q $ }%
-
     \addplot[orange,very thick,mark=square*, mark options={scale=0.75} ]  
 	table[x=deltat,y=L2-err-B] {../data/Cylinder--q1-qstar1-k1-kstar1-msol2alpha-quarter.dat}; \addlegendentry{$ \kappa = 1/4 $ }%
+
+    \addplot[magenta,very thick,mark=x, mark options={scale=0.75} ]  
+	table[x=deltat,y=Qall] {../data/Cylinder--q1-qstar1-k1-kstar1-msol2alpha-quarter.dat}; \addlegendentry{$ Q $ }%
 
     \addplot[lightgray,dotted,ultra thick] 
 	table[mark=none,x=deltat,y expr ={1.25*\thisrowno{0}*\thisrowno{0} }] {../data/Cylinder--q1-qstar1-k1-kstar1-msol2.dat}; \addlegendentry{$ \mathcal{O}(h^2) $ }%
@@ -93,6 +93,10 @@
 
     \addplot[lightgray,dashdotted,ultra thick] 
 	table[mark=none,x=deltat,y expr ={.25*\thisrowno{0}^0.8 }] {../data/Cylinder--q1-qstar1-k1-kstar1-msol2.dat}; \addlegendentry{$ \mathcal{O}(h^{0.8}) $ }%
+
+    \addplot[lightgray,loosely dashdotdotted,ultra thick] 
+	table[mark=none,x=deltat,y expr ={.18*\thisrowno{0}^0.4 }] {../data/Cylinder--q1-qstar1-k1-kstar1-msol2.dat}; \addlegendentry{$ \mathcal{O}(h^{0.4}) $ }%
+
 
     \addplot[lightgray,thick] 
 	table[mark=none,x=deltat,y expr ={  0.45/ abs(ln(  (\thisrowno{0} ) ) )  } ] {../data/Cylinder--q1-qstar1-k1-kstar1-msol2.dat}; \addlegendentry{$ \mathcal{O}( \vert \log(h) \vert^{-1}  ) $ }%
