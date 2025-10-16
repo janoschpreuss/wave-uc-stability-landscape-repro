@@ -7,7 +7,7 @@ This repository contains the instructions to reproduce the numerical experiments
 > * (2): University of Helsinki
 > * (3): Inria Bordeaux (project team: Makutu)
 
-# <a name="repro"></a> Required software 
+# <a name="software"></a> Required software 
 
 The numerical experiments make use of the finite element library [ngsolve](https://ngsolve.org/) and the space-time 
 functionality provided in the Add-on [ngsxfem](https://github.com/ngsxfem/ngsxfem). Installation instructions are 
@@ -15,6 +15,8 @@ provided [here](https://github.com/ngsxfem/ngsxfem/blob/master/INSTALLATION.md).
 via the package manager [pip](https://pypi.org/project/pip/). Since the experiments make use of recently implemented 
 features, a fairly recent version of ngsxfem (>= 2.1.2505) is required to run the code. 
 To compile the figures, we recommend to use the perl script [latexmk](https://www.cantab.net/users/johncollins/latexmk/).  
+
+# <a name="repro"></a> How to reproduce 
 
 ## Figures 2, 3 & 4 
 Change to directory `scripts`. Run

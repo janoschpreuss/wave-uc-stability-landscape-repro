@@ -231,7 +231,7 @@ def SolveProblem(ref_lvl,order_global, alpha_idx = 0, plotting=True,plot_geom=Fa
 
     return delta_t, l2_error_B, l2_errors_B_complement, l2_errors_omega, l2_errors_Q  
  
-if False:
+if True:
 
     for order_global in [1,2,3]:
         
